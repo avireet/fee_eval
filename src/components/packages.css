@@ -1,0 +1,215 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  
+  /* General styles */
+  body {
+    font-family: 'Poppins', sans-serif;
+    
+  }
+  
+  /* Video background */
+  .video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+  }
+  
+  video {
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Package cards */
+  .full {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 60px;
+  }
+  
+  .containerpack {
+    width: 300px;
+    height: 500px;
+    perspective: 800px;
+    margin: 20px;
+    width: calc(33.33% - 20px); /* Adjust the width as needed */
+    margin-bottom: 20px;
+  }
+  
+  .cardpack {
+    height: 550px;
+    width: 100%;
+    padding-bottom: 100px;
+    position: relative;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  .containerpack:hover > .cardpack {
+    cursor: pointer;
+    transform: rotateY(180deg);
+  }
+  
+  .front,
+  .back {
+    height: 100%;
+    width: 100%;
+    border-radius: 2rem;
+    box-shadow: 0 0 5px 2px rgba(50, 50, 50, 0.25);
+    position: absolute;
+    backface-visibility: hidden;
+  }
+  
+  .front .vid {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .back {
+    background-color: #1a3353;
+    color: #faf9f6;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .contentpack {
+    padding: 10px;
+  }
+
+  
+  @media screen and (min-width: 900px) {
+    .containerpack {
+      width: 400px;
+      height: 500px;
+    }
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #eef2ff;
+    color: #282e3e;
+    padding: 20px;
+    font-weight: 600;
+  }
+  
+  .footer-about,
+  .footer-gen,
+  .footer-resources {
+    display: inline-block;
+    vertical-align: top;
+    flex: auto;
+    max-width: 600px;
+    padding: 56px 26px 0px 180px;
+    margin: 0 10px;
+    height: 480px;
+  }
+  
+  .footer p {
+    padding: 32px 20px 2px 8px;
+    margin: 5px;
+  }
+  
+  .footer-about {
+    text-align: left;
+    padding: 44px 0px 100px 50px;
+  }
+  
+  .footer-resources {
+    padding-left: 80px;
+  }
+  
+  .footer-gen a,
+  .footer-resources a {
+    text-decoration: none;
+    color: #282e3e;
+  }
+  
+  .footer-gen .footer-resources {
+    margin-top: 15px;
+  }
+  
+  .footer-gen a:hover,
+  .footer-resources a:hover,
+  .social-icon:hover {
+    color: #423ed8;
+  }
+  
+  .footer h3 {
+    margin-bottom: 10px;
+  }
+  
+  .social-icon {
+    font-size: 20px;
+    color: #282e3e;
+    text-decoration: none;
+  }
+  
+  .all a {
+    margin-left: 10px;
+  }
+  
+  .cartbox {
+    margin-top: 60px;
+    margin-left: 40px;
+    font-weight: 700;
+    font-size: 25px;
+  }
+  
+  .cartbox ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .cartbox li {
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+  }
+  
+  .cartbox li button {
+    margin-left: 1000px;
+    padding: 5px 10px;
+    background-color: #3c5ee7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .buy-now-button {
+    background-color: #4c65af; /* Green background */
+    border: none;
+    color: white; /* White text */
+    padding: 15px 32px; /* Padding */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 40px;
+    margin-left: 40px;
+  }
+  
+  .buy-now-button:hover {
+    background-color: #18117a; /* Darker green background on hover */
+  }
+  

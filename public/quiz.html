@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz</title>
+<style>
+
+    * {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color:#f5f0eb;
+        background: url('quiz.jpg') no-repeat center center fixed;
+        background-size: 100%;
+        background-position: cover;
+    }
+
+    .glass-container {
+        position: relative;
+        width: 90%;
+        margin-top: 75vh;
+        margin-left: 94vh;
+        max-width: 600px;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color:#f5f0eb ;
+        padding-bottom: 10px;
+        border-bottom: 2px solid silver;
+    }
+
+    .quiz {
+        margin-top: 20px; 
+    }
+
+    .choice {
+        display: block;
+        margin-top: 10px; 
+        background: none;
+        outline: none;
+        border: 1px solid black;
+        color: #f5f0eb;
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        text-align: left;
+        font-size: 1rem;
+        font-weight: 550;
+        cursor: pointer;
+    }
+
+    .choice:hover:not([disabled]) {
+        background-color: #0A131C;
+        color: white;
+        transition-duration: .4s;
+    }
+
+    .choice:disabled {
+        cursor: no-drop;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .btn {
+        background: #051e51ff; 
+        color: white;
+        padding: 10px;
+        width: calc(33.33% - 10px);
+        text-align: center;
+        outline: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        margin-top: 20px;
+    }
+
+    .correct {
+        background-color: #56ff9f;
+        font-size: 1rem;
+        font-weight: 550;
+        color:#0A131C;
+    }
+
+    .incorrect {
+        background-color: #f96868;
+        font-size: 1rem;
+        font-weight: 550;
+        color:#0A131C
+    }
+</style>
+</head>
+<body>
+    <div class="glass-container">
+        <h1>Test Your Knowledge</h1>
+        <div class="quiz">
+          <h2 id="question">Question from here</h2>
+          <div id="answerButtons"></div>
+          <div class="btn-container">
+            <button id="prev-btn" class="btn" onclick="handlePrevBtn()">Previous</button>
+            <button id="next-btn" class="btn" onclick="handleNextBtn()">Next</button>
+            <button id="home-btn" class="btn" style="display: none" onclick="goHome()">Go Home</button>
+            <button id="try-again-btn" class="btn" style="display: none" onclick="tryAgain()">Try Again</button>
+          </div>
+        </div>
+      </div>
+    
+      <script>
+        const questions = [
+          {
+            question: "If mass M, area A’ and velocity V are chosen as fundamental units, then the dimension of coefficient of viscosity will be",
+            answers: [
+              { text: "M V/ A' ", correct: false },
+              { text: " MA'/V", correct: false },
+              { text: " MV .A' ", correct: false },
+              { text: " M/V A’", correct: true }
+            ]
+          },
+          {
+            question: "Which of the following combination will produce H2 gas ",
+            answers: [
+              { text: " Zn metal and NaOH(aq)", correct: true },
+              { text: "Au metal and NaCN(aq) in the presence of air", correct: false },
+              { text: "Cu metal and conc. HNO3", correct: false },
+              { text: "Fe metal and conc. HNO3", correct: false }
+            ]
+          },
+          {
+            question: "Which of the following pairs form the same osazone",
+            answers: [
+              { text: "Glucose and fructose ", correct: true },
+              { text: "Glucose and galactose ", correct: false },
+              { text: "Glucose and arabinose", correct: false },
+              { text: "Lactose and maltose ", correct: false }
+            ]
+          },
+          {
+            question: "The speed of sound in a particular gas at a temperature 27oC is 340 m/s. Then, the speed of sound in the same gas at a temperature 90oC is:",
+            answers: [
+              { text: " 340 m/s ", correct: false },
+              { text: " 357 m/s ", correct: true},
+              { text: " 374 m/s ", correct: false },
+              { text: "411.4 m/s", correct: false }
+            ]
+          },
+          {
+            question: "The variance of 20 observations is 5. If each observation is multiplied by 2 then the new variance of the resulting observations, is",
+            answers: [
+              { text: "5", correct: false },
+              { text: "10", correct: false },
+              { text: "20", correct: true },
+              { text: "40", correct: false }
+            ]
+          }
+        ];
+    
+        let currentQuestionIndex = 0;
+        let selectedAnswers = Array(questions.length).fill(null);
+        let submitted = false;
+    
+        // Shuffle questions and answer choices
+        questions.forEach(q => {
+          q.answers.sort(() => Math.random() - 0.5);
+        });
+        questions.sort(() => Math.random() - 0.5);
+    
+        const questionZone = document.getElementById("question");
+        const answerButtons = document.getElementById("answerButtons");
+        const nextBtn = document.getElementById("next-btn");
+        const prevBtn = document.getElementById("prev-btn");
+        const homeBtn = document.getElementById("home-btn");
+        const tryAgainBtn = document.getElementById("try-again-btn");
+    
+        function startQuiz() {
+          showQuestion();
+        }
+
+        function showQuestion() {
+            resetContent();
+            const currentQuestion = questions[currentQuestionIndex];
+            questionZone.textContent = (currentQuestionIndex + 1) + ". " + currentQuestion.question;
+
+            currentQuestion.answers.forEach(answer => {
+                const button = document.createElement("button");
+                button.textContent = answer.text;
+                button.className = "choice";
+                if (selectedAnswers[currentQuestionIndex] === answer.text) {
+                button.style.backgroundColor = "black"; // Change color to black for selected option
+                }
+                if (!submitted) {
+                button.addEventListener("click", () => {
+                    selectedAnswers[currentQuestionIndex] = answer.text;
+                    Array.from(answerButtons.children).forEach(btn => {
+                    btn.style.color = ""; // Reset color of all buttons
+                    btn.disabled = false; // Enable all buttons
+                    });
+                    button.style.backgroundColor = "black"; // Change color to black for selected option
+                    button.disabled = true; // Disable the selected button
+                });
+                } else {
+                button.disabled = true; // Disable all buttons when quiz is submitted
+                }
+                answerButtons.appendChild(button);
+            });
+
+            if (currentQuestionIndex > 0) {
+                prevBtn.style.display = "block";
+            } else {
+                prevBtn.style.display = "none";
+            }
+            }
+
+    
+        function resetContent() {
+          while (answerButtons.firstChild) {
+            answerButtons.removeChild(answerButtons.firstChild);
+          }
+          questionZone.innerHTML = "";
+        }
+    
+        function handleNextBtn() {
+          currentQuestionIndex++;
+          if (currentQuestionIndex < questions.length) {
+            showQuestion();
+          } else {
+            showScore();
+          }
+        }
+    
+        function handlePrevBtn() {
+          currentQuestionIndex--;
+          if (currentQuestionIndex >= 0) {
+            showQuestion();
+          }
+        }
+    
+        function showScore() {
+          resetContent();
+          let score = 0;
+          questions.forEach((question, index) => {
+            if (question.answers.find(a => a.text === selectedAnswers[index])?.correct) {
+              score++;
+            }
+          });
+          questionZone.textContent = `Your Score: ${score}/${questions.length}`;
+          nextBtn.style.display = "none";
+          prevBtn.style.display = "none";
+          homeBtn.style.display = "block";
+          tryAgainBtn.style.display = "block";
+          submitted = true;
+        }
+    
+        function tryAgain() {
+          currentQuestionIndex = 0;
+          selectedAnswers = Array(questions.length).fill(null);
+          submitted = false;
+          showQuestion();
+          nextBtn.style.display = "block";
+          homeBtn.style.display = "none";
+          tryAgainBtn.style.display = "none";
+        }
+    
+        function goHome() {
+          // Redirect to home page or perform any desired action
+          window.location.href = "/home";
+        }
+    
+        startQuiz();
+      </script>
+</body>
+</html>
