@@ -44,6 +44,7 @@ const Home = () => (
     <Review />
     <FAQ />
     <Com />
+    <Footer />
   </>
 );
 
