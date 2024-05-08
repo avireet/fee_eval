@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/navbar';
 import ContactPage from './components/ContactPage';
 import EduPackages from './components/packages';
@@ -21,13 +21,13 @@ const App = () => {
       <div>
         <Navbar />
         <Routes>
+          <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/signup" component={<Signup />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/packages" element={<EduPackages />} />
         </Routes>
-        
       </div>
     </Router>
   );
@@ -44,7 +44,6 @@ const Home = () => (
     <Review />
     <FAQ />
     <Com />
-    <Footer />
   </>
 );
 

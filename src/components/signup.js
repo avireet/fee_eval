@@ -39,10 +39,9 @@ function RightSide() {
             </label>
             <button type="submit" style={{ backgroundColor: '#C8BFE7', fontFamily: 'mukta', fontWeight: '600', padding: '5px 45px', fontSize: '20px' }}>Sign up</button>
           </form>
-          <h3 style={{ textAlign: 'center' }}>OR</h3>
-          <a href="signin.html">
-            <button type="submit" style={{ color: '#3d4457', width: '350px', backgroundColor: '#F6F7FB', fontFamily: 'mukta', fontWeight: '600', padding: '10px 26px', fontSize: '18px', border: 'solid 1px #C8BFE7' }}>Already have an account? Log in</button>
-          </a>
+          <Link to='/signin' style={{ textDecoration: 'none' }}>
+            <button type="submit" style={{ color: '#3d4457', width: '410px', backgroundColor: '#F6F7FB', fontFamily: 'mukta', fontWeight: '600', padding: '10px 26px', fontSize: '18px', border: 'solid 1px #C8BFE7', marginLeft:'35px' }}>Already have an account? Log in</button>
+          </Link>
         </div>
       </div>
     </div>

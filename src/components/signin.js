@@ -33,30 +33,30 @@ function RightSide() {
 
   return (
     <div className="right-side">
-      <div className="form-container">
+      <div className="form-container" style={{ zIndex: showPopup ? '0' : '1' }}>
         <h2 style={{ color: '#3d4457' }}>Login with Username</h2>
         <form action="#" style={{ fontWeight: '700' }}>
-          Email<input type="text" id="email" name="email" placeholder="Enter your email address" required />
-          Password<input type="password" id="password" name="password" placeholder="Enter your password" required />
+          <label>Email</label><input type="text" id="email" name="email" placeholder="Enter your email address" required /><br />
+          <label>Password</label><input type="password" id="password" name="password" placeholder="Enter your password" required /><br />
           <a href="#popup1" onClick={togglePopup} style={{ color: '#C8BFE9', fontSize: '15px', paddingLeft: '190px', marginBottom: '5px', textDecoration: 'none', fontWeight: '600' }}>Forgot Password?</a>
           <button type="submit" style={{ backgroundColor: '#C8BFE7', fontWeight: '600', padding: '5px 45px', fontSize: '20px', fontFamily: 'mukta' }}>Login</button>
         </form>
         <Link to='/signup' style={{ textDecoration: 'none' }}>
-          <button type="submit" style={{ color: '#3d4457', backgroundColor: '#F6F7FB', fontFamily: 'mukta', fontWeight: '600', padding: '10px 66px', fontSize: '17px', border: 'solid 1px #C8BFE7', marginLeft: '10px' }}>New to Learnera? Create an account</button>
+          <button type="submit" style={{ color: '#3d4457', backgroundColor: '#F6F7FB', fontFamily: 'mukta', fontWeight: '600', padding: '10px 86px', fontSize: '17px', border: 'solid 1px #C8BFE7', marginLeft: '10px' }}>New to Learnera? Create an account</button>
         </Link>
       </div>
       
       {showPopup && (
-        <div id="popup1" className="overlay">
+        <div id="popup1" className="overlay" style={{ zIndex: '2' }}>
           <div className="popup">
             <h2 style={{ fontSize: '19px' }}>Forgot Your Password?</h2>
             <a className="close" href="#" onClick={togglePopup}>&times;</a>
             <div className="form-container">
               <div className="form-container2">
                 <form action="#">
-                  <input className="ak" type="text" id="username" name="username" placeholder="Email address" required />
-                  <input className="ak" type="text" id="new" name="new" placeholder="New Password" required />
-                  <input className="ak" type="text" id="reenter" name="reenter" placeholder="Re-enter new Password" required />
+                  <input className="ak" type="text" id="username" name="username" placeholder="Email address" required /><br />
+                  <input className="ak" type="text" id="new" name="new" placeholder="New Password" required /><br />
+                  <input className="ak" type="text" id="reenter" name="reenter" placeholder="Re-enter new Password" required /><br />
                   <button type="submit" style={{ backgroundColor: '#C8BFE7', fontWeight: '700' }}>Reset</button>
                 </form>
               </div>
@@ -67,6 +67,7 @@ function RightSide() {
     </div>
   );
 }
+
 
 
 
