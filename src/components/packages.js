@@ -1,32 +1,49 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './packages.css';
-import FooterComponent from './footer';
-import Cart from './cart'; // Import the Cart component
+import Cart from './cart';
 
 class EduPackages extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cartItems: [], // Initialize cart items array
+      cartItems: [],
     };
   }
 
-  // Method to handle adding items to the cart
   handleAddToCart = (packageName, price) => {
-    const newItem = { packageName, price };
-    this.setState((prevState) => ({
-      cartItems: [...prevState.cartItems, newItem],
-    }));
+    const { cartItems } = this.state;
+    const itemExists = cartItems.some(item => item.packageName === packageName);
+
+    if (!itemExists) {
+      const newItem = { packageName, price };
+      this.setState((prevState) => ({
+        cartItems: [...prevState.cartItems, newItem],
+      }));
+    } else {
+      alert(`${packageName} is already in the cart.`);
+    }
   };
 
-  // Method to handle removing items from the cart
   handleRemoveFromCart = (index) => {
     this.setState((prevState) => ({
       cartItems: prevState.cartItems.filter((item, i) => i !== index),
     }));
   };
 
+  handleCheckout = () => {
+    const { cartItems } = this.state;
+    if (cartItems.length > 0) {
+      this.props.navigate('/checkout', { state: { cartItems } });
+    } else {
+      alert('Your cart is empty. Please add a package to proceed.');
+    }
+  };
+
   render() {
+    const { cartItems } = this.state;
+    const totalPrice = cartItems.reduce((total, item) => total + item.price, 0).toFixed(2);
+
     return (
       <div className="page1">
         <div className="video">
@@ -105,17 +122,22 @@ class EduPackages extends React.Component {
               </div>
             </div>
 
-            {/* Additional packages can be added similarly */}
           </div>
         </div>
 
-        {/* Render Cart component and pass cartItems state and removal function */}
-        <Cart items={this.state.cartItems} removeFromCart={this.handleRemoveFromCart}/>
-
-        
+        <Cart items={this.state.cartItems} removeFromCart={this.handleRemoveFromCart} />
+        <div className="cart-total">
+          <h3>Total: ${totalPrice}</h3>
+        </div>
+        {cartItems.length > 0 && (
+          <button className="checkout-button" onClick={this.handleCheckout}>PROCEED TO CHECKOUT</button>
+        )}
       </div>
     );
   }
 }
 
-export default EduPackages;
+export default (props) => {
+  const navigate = useNavigate();
+  return <EduPackages {...props} navigate={navigate} />;
+};

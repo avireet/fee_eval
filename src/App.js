@@ -14,6 +14,10 @@ import Vision from './components/vision';
 import Review from './components/review';
 import FAQ from './components/faq';
 import Com from './components/com';
+import Checkout from './components/Checkout'; 
+import { Elements } from '@stripe/react-stripe-js'; // Import Elements
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe('process.env.sk_test_51PHgJWSEdO7ajODjtoGJu3GGJo5OjjlZckYJ3XJRG5zPq6YvYisKyGTVGHNz5GV7Xl0XytRDpoPMdf8DIQ4j9cYo00fSpCfWI6')
 
 const App = () => {
   return (
@@ -27,6 +31,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/packages" element={<EduPackages />} />
+          <Route path="/checkout" element={<Elements stripe={stripePromise}><Checkout /></Elements>} />
         </Routes>
       </div>
     </Router>
@@ -44,6 +49,7 @@ const Home = () => (
     <Review />
     <FAQ />
     <Com />
+    <Footer />
   </>
 );
 

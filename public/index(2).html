@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnera - Educational Video Playlists</title>
+    <link rel="stylesheet" href="styling.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Learnera</h1>
+        <p>Your gateway to structured learning</p>
+    </header>
+
+    <main>
+        <section id="playlists">
+            <h2>Subject Video Playlists</h2>
+            <div class="playlist" id="physics">
+                <h3>Physics</h3>
+                <ul>
+                    <!-- Video playlist items will be populated here -->
+                </ul>
+                <div class="scroll-left-btn" onclick="scrollLeft('history')">◀</div>
+                <div class="scroll-right-btn" onclick="scrollRight('history')">▶</div>
+            </div>  
+            <div class="playlist" id="math">
+                <h3>Mathematics</h3>
+                <ul>
+                    <!-- Video playlist items will be populated here -->
+                </ul>
+                <div class="scroll-left-btn" onclick="scrollLeft('math')">◀</div>
+                <div class="scroll-right-btn" onclick="scrollRight('math')">▶</div>
+            </div>
+            <div class="playlist" id="chemistry">
+                <h3>Chemistry</h3>
+                <ul>
+                    <!-- Video playlist items will be populated here -->
+                </ul>
+                <div class="scroll-left-btn" onclick="scrollLeft('science')">◀</div>
+                <div class="scroll-right-btn" onclick="scrollRight('science')">▶</div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Learnera. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

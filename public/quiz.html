@@ -26,7 +26,7 @@
         position: relative;
         width: 90%;
         margin-top: 75vh;
-        margin-left: 94vh;
+        margin-left: 85vh;
         max-width: 600px;
         transform: translate(-50%, -50%);
         background: rgba(255, 255, 255, 0.15);
@@ -200,31 +200,27 @@
                 button.textContent = answer.text;
                 button.className = "choice";
                 if (selectedAnswers[currentQuestionIndex] === answer.text) {
-                button.style.backgroundColor = "black"; // Change color to black for selected option
-                }
-                if (!submitted) {
-                button.addEventListener("click", () => {
-                    selectedAnswers[currentQuestionIndex] = answer.text;
-                    Array.from(answerButtons.children).forEach(btn => {
-                    btn.style.color = ""; // Reset color of all buttons
-                    btn.disabled = false; // Enable all buttons
-                    });
                     button.style.backgroundColor = "black"; // Change color to black for selected option
                     button.disabled = true; // Disable the selected button
-                });
+                }
+                if (!submitted) {
+                    button.addEventListener("click", () => {
+                        selectedAnswers[currentQuestionIndex] = answer.text;
+                        Array.from(answerButtons.children).forEach(btn => {
+                            btn.style.backgroundColor = ""; // Reset background color of all buttons
+                            btn.disabled = false; // Enable all buttons
+                        });
+                        button.style.backgroundColor = "black"; // Change color to black for selected option
+                        button.disabled = true; // Disable the selected button
+                    });
                 } else {
-                button.disabled = true; // Disable all buttons when quiz is submitted
+                    button.disabled = true; // Disable all buttons when quiz is submitted
                 }
                 answerButtons.appendChild(button);
             });
 
-            if (currentQuestionIndex > 0) {
-                prevBtn.style.display = "block";
-            } else {
-                prevBtn.style.display = "none";
-            }
-            }
-
+            prevBtn.style.display = currentQuestionIndex > 0 ? "block" : "none";
+        }
     
         function resetContent() {
           while (answerButtons.firstChild) {
@@ -262,7 +258,7 @@
           prevBtn.style.display = "none";
           homeBtn.style.display = "block";
           tryAgainBtn.style.display = "block";
-          submitted = true;
+          submitted= true;
         }
     
         function tryAgain() {
@@ -276,7 +272,6 @@
         }
     
         function goHome() {
-          // Redirect to home page or perform any desired action
           window.location.href = "/home";
         }
     
